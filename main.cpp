@@ -8,6 +8,6 @@ int main() {
 //    SA sa;
 //    int t = 100;
 //    sa.getSA(0, t);
-    GA ga;
-    ga.train(4);
+    GA ga = GA(14);
+    ga.train(10);
 }

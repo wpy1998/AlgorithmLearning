@@ -33,10 +33,6 @@ void GA::init() {
         parent.insert(parent.begin() + parent.size(), par);
         child.insert(child.begin() + child.size(), chi);
     }
-    for (int i = 0; i < number; i++) {
-        child[i].rfit = 1.0 * child[i].fit / sum;
-        child[i].cfit = 0.0;
-    }
 //    show();
 }
 
@@ -59,8 +55,6 @@ void GA::update() {
         sum += child[i].fit;
     }
     for (int i = 0; i < number; i++) {
-        child[i].rfit = 1.0 * child[i].fit / sum;
-        child[i].cfit = 0.0;
         parent[i] = child[i];
     }
     printf("update finished\n");
@@ -222,7 +216,6 @@ void GA::show() {
         for (int j = 0; j < 6; j++) {
             printf("%d", child[i].gene[j]);
         }
-        printf(", fit = %d, rfit = %f, cfit = %f\n", child[i].fit,
-               child[i].rfit, child[i].cfit);
+        printf(", fit = %d\n", child[i].fit);
     }
 }

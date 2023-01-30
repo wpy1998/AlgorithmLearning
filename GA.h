@@ -14,8 +14,6 @@ class GA {
     public:
         short gene[6];
         int fit;
-        double rfit;
-        double cfit;
     };
 public:
     GA();

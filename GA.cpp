@@ -33,11 +33,11 @@ void GA::init() {
         parent.insert(parent.begin() + parent.size(), par);
         child.insert(child.begin() + child.size(), chi);
     }
-//    show();
+    show();
 }
 
 void GA::train(int epoch) {
-    for (int i = 0; i < epoch; ++i) {
+    for (int i = 0; i < epoch; i++) {
         printf("\n#Epoch: %d\n", i);
         update();
         select();
@@ -77,7 +77,7 @@ void GA::select() {
     for(i = 0; i < number; i++){
         child[i] = parent[i];
     }
-//    show();
+    show();
 }
 
 void GA::crossOver() {

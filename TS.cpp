@@ -20,11 +20,15 @@ void TS::init() {
     tabuElement.path = {0, 1, 2, 3, 4};
     tabuElement.value = calculate(tabuElement.path);
     tabuElement.name = "01234";
-    tabuElement.epoch = 1;
+    tabuElement.live = 1;
     tabuList.insert(tabuList.begin() + tabuList.size(), tabuElement);
 }
 
 void TS::train() {}
+
+void TS::neighbor() {
+    canList.clear();
+}
 
 int TS::calculate(vector<int> path) {
     int result = 0;

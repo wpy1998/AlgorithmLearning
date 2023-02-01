@@ -1,5 +1,6 @@
 //
 // Created by 12514 on 2023/1/29.
+// 禁忌搜素算法
 //
 
 #ifndef ALGORITHMLEARNING_TS_H
@@ -15,7 +16,7 @@ class TS {
     class TabuElement{
     public:
         vector<int> path;
-        int value, epoch;
+        int value, live;
         string name;
     };
 public:
@@ -26,9 +27,11 @@ public:
 private:
     vector<vector<int>> cityMap;
     vector<TabuElement> tabuList;
+    vector<TabuElement> canList;
     vector<vector<double>> delta;
     vector<bool> vis;
     void tabuSearch();
+    void neighbor();
     int calculate(vector<int> path);
 };
 

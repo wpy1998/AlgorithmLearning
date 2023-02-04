@@ -20,24 +20,22 @@ void PSO::init() {
         Particle particle;
         particle.x = random(0, 2);
         particle.y = calculate(particle.x);
-        particle.velocity = 0.01 * ((i + 1) % 10);
+        particle.velocity = random(0, 1);
         particles.insert(particles.begin() + particles.size(), particle);
     }
 }
 
 void PSO::train() {
-    quickSort();
+    quickSort(0, particleNumber - 1);
     for(int i = 0; i < particles.size(); i++){
         printf("x = %f, y = %f, velocity = %f\n", particles[i].x, particles[i].y, particles[i].velocity);
     }
-}
-
-void PSO::setParticleNumber(int particleNumber) {
-    this->particleNumber = particleNumber;
-}
-
-double PSO::calculate(double x) {
-    return x * x - x;
+    for(int i = 0; i < epoch; i++){
+        double w = 0.4;
+        for(int j = 0; j < particleNumber; j++){
+            
+        }
+    }
 }
 
 double PSO::random(double begin, double last) {
@@ -52,12 +50,11 @@ double PSO::random(double begin, double last) {
     return dist(mt);
 }
 
-void PSO::quickSort() {
-    int i, j, flag;
-    i = 0;
-    j = particles.size() - 1;
+void PSO::quickSort(int begin, int last) {
+    if (begin >= last) return;
+    int i = begin, j = last, flag;
     flag = 0;
-    while (i <= j){
+    while (i < j){
         if (flag == 0){
             if (particles[i].y < particles[j].y){
                 Particle temp = particles[i];
@@ -80,4 +77,30 @@ void PSO::quickSort() {
             }
         }
     }
+    quickSort(begin, i - 1);
+    quickSort(i + 1, last);
+}
+
+void PSO::setParticleNumber(int particleNumber) {
+    this->particleNumber = particleNumber;
+}
+
+void PSO::setC1(double c1) {
+    this->c1 = c1;
+}
+
+void PSO::setC2(double c2) {
+    this->c2 = c2;
+}
+
+void PSO::setEpoch(int epoch) {
+    this->epoch = epoch;
+}
+
+double PSO::calculate(double x) {
+    return x * x - x;
+}
+
+double PSO::getMax(double a, double b) {
+    return a > b ? a : b;
 }

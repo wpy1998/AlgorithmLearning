@@ -21,14 +21,20 @@ public:
     PSO();
     PSO(int particleNumber);
     void setParticleNumber(int particleNumber);
+    void setEpoch(int epoch);
+    void setC1(double c1);
+    void setC2(double c2);
     void train();
 private:
-    int particleNumber;
+    int particleNumber, epoch = 1;
+    double c1 = 2, c2 = 2;
     vector<Particle> particles;
+
     void init();
-    void quickSort();
+    void quickSort(int begin, int last);
     double calculate(double x);
     double random(double begin, double last);
+    double getMax(double a, double b);
 };
 
 

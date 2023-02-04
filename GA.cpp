@@ -62,18 +62,8 @@ void GA::update() {
 
 void GA::select() {
     printf("------select------\n");
-    quickSort();
-    int i, j;
-    Chromosome temp;
-    for (i = 0; i < number - 1; i++) {
-        for(j = 0; j < number - 1 - i; j++){
-            if (parent[j + 1].fit > parent[j].fit){
-                temp = parent[j + 1];
-                parent[j + 1] = parent[j];
-                parent[j] = temp;
-            }
-        }
-    }
+    quickSort(0, number - 1);
+    int i;
     for(i = 0; i < number; i++){
         child[i] = parent[i];
     }
@@ -122,15 +112,13 @@ void GA::setMutationProb(double prob) {
     mutation_prob = prob;
 }
 
-void GA::quickSort() {
-    int i = 0, j = number - 1, flag = 0;
-    Chromosome temp;
+void GA::quickSort(int begin, int last) {
+    if (begin >= last) return;
+    int i = begin, j = last, flag = 0;
     while (i < j){
         if (flag == 0){
             if (child[i].fit < child[j].fit){
-                temp = child[i];
-                child[i] = child[j];
-                child[j] = temp;
+                swap(i, j);
                 i++;
                 flag = 1;
             } else{
@@ -138,9 +126,7 @@ void GA::quickSort() {
             }
         } else{
             if (child[i].fit < child[j].fit){
-                temp = child[i];
-                child[i] = child[j];
-                child[j] = temp;
+                swap(i, j);
                 j--;
                 flag = 0;
             } else{
@@ -148,6 +134,8 @@ void GA::quickSort() {
             }
         }
     }
+    quickSort(begin, i - 1);
+    quickSort(i + 1, last);
 }
 
 double GA::random(double lower, double upper) {
@@ -218,4 +206,10 @@ void GA::show() {
         }
         printf(", fit = %d\n", child[i].fit);
     }
+}
+
+void GA::swap(int i, int j) {
+    Chromosome temp = parent[i];
+    parent[i] = parent[j];
+    parent[j] = temp;
 }

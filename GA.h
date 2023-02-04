@@ -35,9 +35,10 @@ private:
     double random(double lower, double upper);
     int randomInt(int lower, int upper);
     int calculate(int x);
-    void quickSort();
+    void quickSort(int begin, int last);
     int convert(short gene[]);
     short* convert(int value);
+    void swap(int i, int j);
 };
 
 

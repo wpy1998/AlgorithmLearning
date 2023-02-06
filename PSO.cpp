@@ -16,25 +16,53 @@ PSO::PSO(int particleNumber) {
 
 void PSO::init() {
     particles.clear();
+    velocityMax = 0.1;
+    globalBest = - 100000;
     for(int i = 0; i < this->particleNumber; i++){
         Particle particle;
         particle.x = random(0, 2);
         particle.y = calculate(particle.x);
-        particle.velocity = random(0, 1);
+        particle.partialBest = particle.y;
+        particle.velocity = random(0, 0.1);
         particles.insert(particles.begin() + particles.size(), particle);
     }
 }
 
 void PSO::train() {
     quickSort(0, particleNumber - 1);
+    globalBest = particles[0].y;
     for(int i = 0; i < particles.size(); i++){
-        printf("x = %f, y = %f, velocity = %f\n", particles[i].x, particles[i].y, particles[i].velocity);
+        printf("x = %f, y = %f, velocity = %f, pbest = %f\n", particles[i].x, particles[i].y,
+               particles[i].velocity, particles[i].partialBest);
     }
     for(int i = 0; i < epoch; i++){
         double w = 0.4;
         for(int j = 0; j < particleNumber; j++){
-            
+            particles[j].x += particles[j].velocity;
+            if (particles[j].x > 2){
+                particles[j].x = 2;
+            }
+            if (particles[j].x < 0){
+                particles[j].x = 0;
+            }
+            particles[j].velocity = w * particles[j].velocity + c1 * random(0, 1) *
+                    (particles[j].partialBest - particles[j].x) + c2 * random(0, 1) *
+                    (globalBest - particles[j].x);
+            if (particles[j].velocity > velocityMax){
+                particles[j].velocity = velocityMax;
+            }
         }
+
+        for (int j = 0; j < particleNumber; ++j) {
+            particles[j].y = calculate(particles[j].x);
+            particles[j].partialBest = getMax(particles[j].y, particles[j].partialBest);
+            globalBest = getMax(globalBest, particles[j].partialBest);
+        }
+        for (int j = 0; j < particleNumber; ++j) {
+            printf("partial %d, x = %f, y = %f, v = %f, pBest = %f\n", j, particles[j].x,
+                   particles[j].y, particles[j].velocity, particles[j].partialBest);
+        }
+        printf("epoch: %d, best fitness = %f\n\n", i, globalBest);
     }
 }
 

@@ -15,7 +15,7 @@ using namespace std;
 class PSO {
     class Particle{
     public:
-        double x, y, velocity;
+        double x, y, velocity, partialBest;
     };
 public:
     PSO();
@@ -27,7 +27,7 @@ public:
     void train();
 private:
     int particleNumber, epoch = 1;
-    double c1 = 2, c2 = 2;
+    double c1 = 2, c2 = 2, velocityMax, globalBest;
     vector<Particle> particles;
 
     void init();

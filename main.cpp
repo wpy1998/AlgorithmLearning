@@ -17,6 +17,6 @@ int main() {
 //    ts.show();
 
     PSO pso = PSO(4);
-    pso.setEpoch(20);
+    pso.setEpoch(30);
     pso.train();
 }

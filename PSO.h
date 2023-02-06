@@ -31,7 +31,7 @@ private:
     vector<Particle> particles;
 
     void init();
-    void quickSort(int begin, int last);
+    double select();
     double calculate(double x);
     double random(double begin, double last);
     double getMax(double a, double b);
